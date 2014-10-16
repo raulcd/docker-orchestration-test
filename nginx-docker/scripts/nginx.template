@@ -1,0 +1,11 @@
+server { # simple reverse-proxy
+    listen       80;
+    # pass requests for dynamic content to rails/turbogears/zope, et al
+    location / {
+        proxy_pass    http://{{ web_server.ip }}:{{ web_server.port }};
+    }
+
+    location ~^/(search)(/.*)?$ {
+        proxy_pass    http://{{ search_server.ip }}:{{ search_server.port }};
+    }
+}
