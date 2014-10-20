@@ -27,6 +27,12 @@ on this example, and the links between them:
     |        |
      ========
 
+
+Nginx port 80 will be exported to localhost and:
+
+http://localhost --> There is a Proxy Pass that redirects everything (except /search) to the Django App
+http://localhost/search --> There is a Proxy Pass that redirects everything under /search to the Flask App
+
 Requirements
 ============
 
