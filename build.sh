@@ -1,6 +1,12 @@
-echo "Remove previous images"
-docker stop web_backend search_backend nginx
-docker rm web_backend search_backend nginx
+echo "Remove previous docker containers"
+running_containers=`docker ps -a | awk {'print $1"\t"$2'} | grep -e 'nginx' -e 'django' -e 'flask' | awk {'print $1'}`
+for i in $running_containers
+do
+    echo "Stopping cotainer id: " $i
+    docker stop $i 1>/dev/null
+    echo "Removing container id:" $i
+    docker rm $i 1>/dev/null
+done
 # Postgres image exposes port 5432
 docker run --name db -d postgres
 docker build -t django:latest ./django-docker/
