@@ -4,7 +4,6 @@ if [ "$#" -ne 1 ]; then
 fi
 
 DOCKER_REGISTRY=10.9.3.206:5000
-i
 echo "Remove previous docker containers if they exist"
 running_containers=`docker ps -a | awk {'print $1"\t"$2'} | grep -e 'nginx' -e 'django' -e 'flask' | awk {'print $1'}`
 for i in $running_containers
