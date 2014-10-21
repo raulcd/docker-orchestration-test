@@ -13,6 +13,12 @@ docker build -t django:latest ./django-docker/
 docker run --link db:db django python manage.py migrate 
 docker run -d -p 8000:8000 --link db:db --name web_backend -v `pwd`/django-docker/:/code django python manage.py runserver 0.0.0.0:8000
 docker build -t flask:latest ./flask-docker/
-docker run -d -p 5000:5000 --name search_backend flask
+if [ $DEVEL ]
+then
+    echo 'Development mode on'
+    docker run -d -p 5000:5000 --name search_backend -v `pwd`/flask-docker/:/code flask python api.py
+else
+    docker run -d -p 5000:5000 --name search_backend flask
+fi
 docker build -t nginx:latest ./nginx-docker/
 docker run -d -p 80:80 --link web_backend:web_backend --link search_backend:search_backend --name nginx nginx

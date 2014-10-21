@@ -51,6 +51,20 @@ The build.sh script removes (if they exist) the previous containers.
 ./build.sh
 ```
 
+Development Usage
+=================
+
+If you want to build your containers for development just run:
+
+```
+DEVEL=TRUE ./build.sh
+```
+
+This mounts the flask-docker folder on the docker container and runs the app 
+to pick the changes that have been done in the code while the container is 
+running. This gives you the ability to develop against a running container.
+
+
 Clean utility
 =============
 
